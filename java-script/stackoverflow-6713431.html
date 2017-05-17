@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--
+
+  Inspired by http://stackoverflow.com/a/6713431/180275
+
+-->
+<html>
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <title>Y-Combinator</title>
+
+  <script type="text/javascript">
+    function main() {
+
+      var out = document.getElementById('out');
+
+      var result =  (
+        function (builder) {
+          return function (n) {
+            return builder(builder)(n);
+          }
+        }(
+         function (recurse) {
+           return function (n) {
+             if (0 == n)
+               return 1;
+             else
+               return n * recurse(recurse)(n - 1);
+           }
+         }
+        )
+        (5)
+      );
+
+      out.innerHTML="The result is: " + result;
+
+    }
+  </script>
+
+</head>
+<body onload='main()'>
+
+  <div id='out'>
+  </div>
+
+</body>
+</html>
